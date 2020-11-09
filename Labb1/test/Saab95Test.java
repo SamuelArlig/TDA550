@@ -38,21 +38,4 @@ public class Saab95Test {
         assertTrue(speedFactorTurboOff == saab95.speedFactor());
     }
 
-    @Test
-    public void testIncrementSpeed(){
-        double speed = saab95.currentSpeed;
-        saab95.incrementSpeed(10000);
-
-        assertTrue(speed < saab95.currentSpeed);
-    }
-
-    @Test
-    public void testDecrementSpeed(){
-        saab95.currentSpeed = 10;
-        double speed = saab95.currentSpeed;
-        saab95.decrementSpeed(10000);
-
-        assertTrue(saab95.currentSpeed >= 0);
-        assertTrue(speed > saab95.currentSpeed);
-    }
 }

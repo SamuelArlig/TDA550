@@ -14,14 +14,6 @@ public class Volvo240Test {
         assertTrue(volvo240.modelName == "Volvo240");
         assertTrue(volvo240.turnSpeed == 0.1);
     }
-    @Test
-    public void testIncrementVolvo240(){
-        Volvo240 volvo240 = new Volvo240();
-        double speed = volvo240.currentSpeed;
-        volvo240.incrementSpeed(1);
-
-        assertTrue(speed < volvo240.currentSpeed);
-    }
 
     @Test
     public void testGasVolvo240(){
@@ -30,16 +22,6 @@ public class Volvo240Test {
         volvo240.gas(1);
 
         assertTrue(speed < volvo240.currentSpeed);
-    }
-
-    @Test
-    public void decrementSpeedVolvo240(){
-        Volvo240 volvo240 = new Volvo240();
-        volvo240.currentSpeed = 10;
-        double speed = volvo240.currentSpeed;
-        volvo240.decrementSpeed(1);
-
-        assertTrue(speed > volvo240.currentSpeed);
     }
 
     @Test
