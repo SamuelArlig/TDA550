@@ -1,5 +1,7 @@
 
-
+/**
+ * Run a race between cars in the console
+ */
 public class Race {
     /**
      * Run a race between a Saab95 with turbo and a Volvo240
