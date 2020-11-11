@@ -1,16 +1,28 @@
 import java.awt.*;
 
+/**
+ * A generic car that can be accelerated, decelerated and steered
+ */
 public abstract class Car implements Movable {
-    protected int nrDoors; // Number of doors on the car
-    protected double enginePower; // Engine power of the car
-    protected double currentSpeed; // The current speed of the car
-    protected Color color; // Color of the car
-    protected String modelName; // The car model name
+    /** Number of doors on the car */
+    protected int nrDoors;
+    /** Engine power of the car */
+    protected double enginePower;
+    /** The current speed of the car */
+    protected double currentSpeed;
+    /** Color of the car */
+    protected Color color;
+    /** The car model name */
+    protected String modelName;
 
+    /** The car's x position */
     protected double x = 0;
+    /** The car's y position */
     protected double y = 0;
-    protected double angle = 0; // Radians
-    protected double turnSpeed; // Radians
+    /** The car's angle in radians */
+    protected double angle = 0;
+    /** How fast the car turns in radians */
+    protected double turnSpeed;
 
     /**
      * Returns the number of doors
@@ -71,7 +83,7 @@ public abstract class Car implements Movable {
     }
 
     /**
-     * Return the speed factor of the car
+     * Returns the speed factor of the car
      * @return the speed factor of the car
      */
     protected abstract double speedFactor();
@@ -91,7 +103,6 @@ public abstract class Car implements Movable {
      * Can't decrease speed below 0
      * @param amount amount to decrease the speed, must be > 0
      */
-
     private void decrementSpeed(double amount){
         amount = Math.max(0, amount);
         currentSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount, 0);
@@ -102,7 +113,6 @@ public abstract class Car implements Movable {
      *
      * @param amount amount to increment speed, must be between 0 and 1.
      */
-
     public void gas(double amount){
         amount = Math.max(0, Math.min(amount, 1));
         incrementSpeed(amount);
@@ -113,24 +123,33 @@ public abstract class Car implements Movable {
      *
      * @param amount amount to decrement speed, must be between 0 and 1.
      */
-
     public void brake(double amount){
         amount = Math.max(0, Math.min(amount, 1));
         decrementSpeed(amount);
     }
 
+
+    /**
+     * Turn the car turnSpeed radians to the left
+     */
     @Override
     public void turnLeft() {
         angle += turnSpeed;
         angle %= (Math.PI * 2);
     }
 
+    /**
+     * Turn the car turnSpeed radians to the right
+     */
     @Override
     public void turnRight() {
         angle -= turnSpeed;
         angle %= (Math.PI * 2);
     }
 
+    /**
+     * Move the car currentSpeed units in its current direction
+     */
     @Override
     public void move() {
         x += currentSpeed*Math.cos(angle);
