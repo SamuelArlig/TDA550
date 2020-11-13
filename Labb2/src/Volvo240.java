@@ -15,12 +15,17 @@ public class Volvo240 extends Car {
      * Create a black Volvo240
      */
     public Volvo240(){
-        super(4, 100, Color.black, "Volvo240", 0.1);
+        nrDoors = 4;
+        color = Color.black;
+        enginePower = 100;
+        modelName = "Volvo240";
+        turnSpeed = 0.1;
+        stopEngine();
     }
 
     @Override
     protected double speedFactor(){
-        return getEnginePower() * 0.01 * trimFactor;
+        return enginePower * 0.01 * trimFactor;
     }
 
 }

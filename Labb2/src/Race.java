@@ -28,11 +28,11 @@ public class Race {
                 car.gas(1);
                 car.move();
 
-                if(car.getX() > 50){
+                if(car.x > 50){
                     car.turnLeft();
                 }
 
-                System.out.println(car.getModelName() + ": x:" + car.getX() + ", y: " + car.getY() + ", Speed: " + car.getCurrentSpeed());
+                System.out.println(car.modelName + ": x:" + car.x + ", y: " + car.y + ", Speed: " + car.getCurrentSpeed());
             }
         }
 

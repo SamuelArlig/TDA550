@@ -16,9 +16,13 @@ public class Saab95 extends Car {
      * Create a red Saab95 with turbo off
      */
     public Saab95(){
-        super(2, 125, Color.red, "Saab95", 0.1);
-
+        nrDoors = 2;
+        color = Color.red;
+        enginePower = 125;
 	    turboOn = false;
+        modelName = "Saab95";
+        turnSpeed = 0.1;
+        stopEngine();
     }
 
     /**
@@ -38,7 +42,7 @@ public class Saab95 extends Car {
     protected double speedFactor(){
         double turbo = 1;
         if(turboOn) turbo = 1.3;
-        return getEnginePower() * 0.01 * turbo;
+        return enginePower * 0.01 * turbo;
     }
 
     /**

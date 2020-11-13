@@ -5,35 +5,24 @@ import java.awt.*;
  */
 public abstract class Car implements Movable {
     /** Number of doors on the car */
-    private int nrDoors;
+    protected int nrDoors;
     /** Engine power of the car */
-    private double enginePower;
+    protected double enginePower;
     /** The current speed of the car */
-    private double currentSpeed;
+    protected double currentSpeed;
     /** Color of the car */
-    private Color color;
+    protected Color color;
     /** The car model name */
-    private String modelName;
+    protected String modelName;
 
     /** The car's x position */
-    private double x = 0;
+    protected double x = 0;
     /** The car's y position */
-    private double y = 0;
+    protected double y = 0;
     /** The car's angle in radians */
-    private double angle = 0;
+    protected double angle = 0;
     /** How fast the car turns in radians */
-    private double turnSpeed;
-
-    protected Car(int nrDoors, double enginePower, Color color, String modelName, double turnSpeed){
-        this.nrDoors = nrDoors;
-        this.enginePower = enginePower;
-        this.color = color;
-        this.modelName = modelName;
-        this.turnSpeed = turnSpeed;
-
-        stopEngine();
-    }
-
+    protected double turnSpeed;
 
     /**
      * Returns the number of doors
@@ -76,54 +65,6 @@ public abstract class Car implements Movable {
      */
     public void setColor(Color clr){
         color = clr;
-    }
-
-    /**
-     * Get the model name
-     * @return model name
-     */
-    public String getModelName(){
-        return  modelName;
-    }
-
-    /**
-     * Get the car's turn speed
-     * @return turn speed
-     */
-    public double getTurnSpeed(){
-        return  turnSpeed;
-    }
-
-    /**
-     * Get the car's angle
-     * @return current angle in radians
-     */
-    public double getAngle(){
-        return angle;
-    }
-
-    /**
-     * Set the car's angle
-     * @param angle new angle in radians
-     */
-    public void setAngle(double angle){
-        this.angle = angle;
-    }
-
-    /**
-     * Set the car's x position
-     * @return x position
-     */
-    public double getX() {
-        return x;
-    }
-
-    /**
-     * Set the car's y position
-     * @return y position
-     */
-    public double getY() {
-        return y;
     }
 
     /**
@@ -173,10 +114,7 @@ public abstract class Car implements Movable {
      * @param amount amount to increment speed, must be between 0 and 1.
      */
     public void gas(double amount){
-        if(amount < 0 || amount > 1){
-            return;
-        }
-
+        amount = Math.max(0, Math.min(amount, 1));
         incrementSpeed(amount);
     }
 
@@ -186,9 +124,7 @@ public abstract class Car implements Movable {
      * @param amount amount to decrement speed, must be between 0 and 1.
      */
     public void brake(double amount){
-        if(amount < 0 || amount > 1){
-            return;
-        }
+        amount = Math.max(0, Math.min(amount, 1));
         decrementSpeed(amount);
     }
 
