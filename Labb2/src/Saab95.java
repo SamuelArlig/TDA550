@@ -16,33 +16,29 @@ public class Saab95 extends Car {
      * Create a red Saab95 with turbo off
      */
     public Saab95(){
-        nrDoors = 2;
-        color = Color.red;
-        enginePower = 125;
-	    turboOn = false;
-        modelName = "Saab95";
-        turnSpeed = 0.1;
-        stopEngine();
+        super(2, 125, Color.red, "Saab95", 0.1,1);
+
+        turboOn = false;
     }
 
     /**
      * Turns the turbo on
      */
     public void setTurboOn(){
-	    turboOn = true;
+        turboOn = true;
     }
     /**
      * Turns the turbo off
      */
     public void setTurboOff(){
-	    turboOn = false;
+        turboOn = false;
     }
 
     @Override
     protected double speedFactor(){
         double turbo = 1;
         if(turboOn) turbo = 1.3;
-        return enginePower * 0.01 * turbo;
+        return getEnginePower() * 0.01 * turbo;
     }
 
     /**

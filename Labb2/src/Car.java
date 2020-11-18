@@ -5,24 +5,40 @@ import java.awt.*;
  */
 public abstract class Car implements Movable {
     /** Number of doors on the car */
-    protected int nrDoors;
+    private int nrDoors;
     /** Engine power of the car */
-    protected double enginePower;
+    private double enginePower;
     /** The current speed of the car */
-    protected double currentSpeed;
+    private double currentSpeed;
     /** Color of the car */
-    protected Color color;
+    private Color color;
     /** The car model name */
-    protected String modelName;
+    private String modelName;
+    /** The car size */
+    private int size;
 
     /** The car's x position */
-    protected double x = 0;
+    private double x = 0;
     /** The car's y position */
-    protected double y = 0;
+    private double y = 0;
     /** The car's angle in radians */
-    protected double angle = 0;
+    private double angle = 0;
     /** How fast the car turns in radians */
-    protected double turnSpeed;
+    private double turnSpeed;
+
+    private boolean isEngineOn = false;
+
+    protected Car(int nrDoors, double enginePower, Color color, String modelName, double turnSpeed,int size ){
+        this.nrDoors = nrDoors;
+        this.enginePower = enginePower;
+        this.color = color;
+        this.modelName = modelName;
+        this.turnSpeed = turnSpeed;
+        this.size = size;
+
+        stopEngine();
+    }
+
 
     /**
      * Returns the number of doors
@@ -41,6 +57,10 @@ public abstract class Car implements Movable {
         return enginePower;
     }
 
+    public boolean isEngineOn(){
+        return isEngineOn;
+    }
+
     /**
      * Returns the cars current speed
      *
@@ -48,6 +68,15 @@ public abstract class Car implements Movable {
      */
     public double getCurrentSpeed() {
         return currentSpeed;
+    }
+
+    /**
+     * Returns the size of the car
+     *
+     * @return the size of the car
+     */
+    public int getSize(){
+        return size;
     }
 
     /**
@@ -68,17 +97,66 @@ public abstract class Car implements Movable {
     }
 
     /**
+     * Get the model name
+     * @return model name
+     */
+    public String getModelName(){
+        return  modelName;
+    }
+
+    /**
+     * Get the car's turn speed
+     * @return turn speed
+     */
+    public double getTurnSpeed(){
+        return  turnSpeed;
+    }
+
+    /**
+     * Get the car's angle
+     * @return current angle in radians
+     */
+    public double getAngle(){
+        return angle;
+    }
+
+    /**
+     * Set the car's angle
+     * @param angle new angle in radians
+     */
+    public void setAngle(double angle){
+        this.angle = angle;
+    }
+
+    /**
+     * Set the car's x position
+     * @return x position
+     */
+    public double getX() {
+        return x;
+    }
+
+    /**
+     * Set the car's y position
+     * @return y position
+     */
+    public double getY() {
+        return y;
+    }
+
+    /**
      * Starts the engine of the car.
      *
      */
     public void startEngine(){
-        currentSpeed = 0.1;
+        isEngineOn = true;
     }
 
     /**
      * Stops the engine of the car
      */
     public void stopEngine(){
+        isEngineOn = false;
         currentSpeed = 0;
     }
 
@@ -114,7 +192,14 @@ public abstract class Car implements Movable {
      * @param amount amount to increment speed, must be between 0 and 1.
      */
     public void gas(double amount){
-        amount = Math.max(0, Math.min(amount, 1));
+        if(!isEngineOn){
+            return;
+        }
+
+        if(amount < 0 || amount > 1){
+            return;
+        }
+
         incrementSpeed(amount);
     }
 
@@ -124,7 +209,9 @@ public abstract class Car implements Movable {
      * @param amount amount to decrement speed, must be between 0 and 1.
      */
     public void brake(double amount){
-        amount = Math.max(0, Math.min(amount, 1));
+        if(amount < 0 || amount > 1){
+            return;
+        }
         decrementSpeed(amount);
     }
 
