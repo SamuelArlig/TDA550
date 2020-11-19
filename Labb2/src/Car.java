@@ -26,8 +26,18 @@ public abstract class Car implements Movable {
     /** How fast the car turns in radians */
     private double turnSpeed;
 
+
     private boolean isEngineOn = false;
 
+    /**
+     * Creates a car with the specified parameters
+     * @param nrDoors the number of doors on the car
+     * @param enginePower the engine power of the car
+     * @param color the color of the car
+     * @param modelName the model name of the car
+     * @param turnSpeed the turn speed of the car, in radians
+     * @param size size class of the car
+     */
     protected Car(int nrDoors, double enginePower, Color color, String modelName, double turnSpeed,int size ){
         this.nrDoors = nrDoors;
         this.enginePower = enginePower;
@@ -57,6 +67,11 @@ public abstract class Car implements Movable {
         return enginePower;
     }
 
+
+    /**
+     * Check if the cars engine is turned on
+     * @return true if engine is on
+     */
     public boolean isEngineOn(){
         return isEngineOn;
     }
@@ -143,6 +158,29 @@ public abstract class Car implements Movable {
     public double getY() {
         return y;
     }
+
+    /**
+     * Sets the position of the car
+     * @param x x position
+     * @param y y position
+     */
+    public void setPosition(double x, double y){
+        this.x = x;
+        this.y = y;
+    }
+
+    /**
+     * Get the distance to another car
+     * @param other The other car
+     * @return the distance between the two cars
+     */
+    public double distanceTo(Car other){
+        double dx = x - other.getX();
+        double dy = y - other.getY();
+
+        return Math.sqrt(dx * dx + dy * dy);
+    }
+
 
     /**
      * Starts the engine of the car.
@@ -239,7 +277,6 @@ public abstract class Car implements Movable {
      */
     @Override
     public void move() {
-        x += currentSpeed*Math.cos(angle);
-        y += currentSpeed*Math.sin(angle);
+        setPosition(x + currentSpeed*Math.cos(angle), y + currentSpeed*Math.sin(angle));
     }
 }

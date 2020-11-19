@@ -1,5 +1,13 @@
 import java.awt.*;
 
+/**
+ * A Scania
+ * Has:
+ * 2 doors
+ * 660 engine power
+ * 0.07 radians turn speed
+ * A bed that can be raised and lowered
+ */
 public class Scania extends Truck {
 
     /**
@@ -26,7 +34,7 @@ public class Scania extends Truck {
     /**
      * Raises the bed angle by amount
      *
-     * @param radians
+     * @param radians the angle to raise the bed, in radians
      */
     public void raiseBed(double radians) {
         setBedAngle(getBedAngle() + radians);

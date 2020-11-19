@@ -1,3 +1,4 @@
+import java.util.LinkedList;
 
 /**
  * Run a race between cars in the console
@@ -9,6 +10,7 @@ public class Race {
      * @param args Don't matter
      */
     public static void main(String[] args) {
+
         Saab95 saab = new Saab95();
 
         Car[] cars = new Car[2];
@@ -32,7 +34,7 @@ public class Race {
                     car.turnLeft();
                 }
 
-                System.out.println(car.getModelName() + ": x:" + car.getX() + ", y: " + car.getY() + ", Speed: " + car.getCurrentSpeed());
+                // System.out.println(car.getModelName() + ": x:" + car.getX() + ", y: " + car.getY() + ", Speed: " + car.getCurrentSpeed());
             }
         }
 
