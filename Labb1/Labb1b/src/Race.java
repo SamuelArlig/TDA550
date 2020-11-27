@@ -34,7 +34,7 @@ public class Race {
                     car.turnLeft();
                 }
 
-                // System.out.println(car.getModelName() + ": x:" + car.getX() + ", y: " + car.getY() + ", Speed: " + car.getCurrentSpeed());
+                System.out.println(car.getModelName() + ": x:" + car.getX() + ", y: " + car.getY() + ", Speed: " + car.getCurrentSpeed());
             }
         }
 
