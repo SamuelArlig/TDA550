@@ -1,3 +1,5 @@
+import org.hamcrest.Factory;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -6,7 +8,7 @@ import java.awt.event.ActionListener;
 public class SimulationEngine extends JFrame {
 
     private static final int X = 800;
-    private static final int Y = 700;
+    private static final int Y = 800;
     private static final int TRACK_HEIGHT = 400;
     private static final int CONTROLLER_HEIGHT = 230;
 
@@ -18,6 +20,7 @@ public class SimulationEngine extends JFrame {
     private VehicleController vehicleController;
     private VehicleView vehicleView;
     private InfoView infoView;
+    private FactoryController factoryController;
 
     public SimulationEngine(){
 
@@ -25,6 +28,7 @@ public class SimulationEngine extends JFrame {
         vehicleView = new VehicleView(X, TRACK_HEIGHT);
         vehicleController = new VehicleController(vehicleModel, X, CONTROLLER_HEIGHT);
         infoView = new InfoView(X/2, 50);
+        factoryController = new FactoryController(vehicleModel,X/2,100);
 
 
         timer.start();
@@ -40,7 +44,12 @@ public class SimulationEngine extends JFrame {
 
         this.add(vehicleView);
         this.add(vehicleController);
-        this.add(infoView);
+        JPanel bottomBar = new JPanel();
+        bottomBar.setPreferredSize(new Dimension(X, 100));
+        bottomBar.setLayout(new GridLayout(1, 2));
+        bottomBar.add(infoView);
+        bottomBar.add(factoryController);
+        this.add(bottomBar);
 
         // Make the frame pack all it's components by respecting the sizes if possible.
         this.pack();

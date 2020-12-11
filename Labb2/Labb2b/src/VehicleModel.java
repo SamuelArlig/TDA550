@@ -1,28 +1,51 @@
 import java.util.ArrayList;
 import java.util.List;
-
-/*
-* This class represents the Controller part in the MVC pattern.
-* It's responsibilities is to listen to the View and responds in a appropriate manner by
-* modifying the model state and the updating the view.
- */
+import java.util.Random;
 
 public class VehicleModel {
 
-    private ArrayList<Car> cars = new ArrayList<>();
+    private static final double VEHICLE_Y_SPACING = 62;
+
+    private List<Car> cars = new ArrayList<>();
     private int trackLength;
 
     public VehicleModel(int trackLength){
-        cars.add(new Volvo240(0,(cars.size())*100));
-        cars.add(new Saab95(0,cars.size()*100));
-        cars.add(new Scania(0,cars.size()*100));
+        cars.add(CarFactory.CreateVolvo240(0,(cars.size())*VEHICLE_Y_SPACING));
+        cars.add(CarFactory.CreateSaab95(0,(cars.size())*VEHICLE_Y_SPACING));
+        cars.add(CarFactory.CreateScania(0,(cars.size())*VEHICLE_Y_SPACING));
 
         this.trackLength = trackLength;
     }
 
-    /* Each step the TimerListener moves all the cars in the list and tells the
-    * view to update its images. Change this method to your needs.
-    * */
+    public void addRandomCar(){
+        if(cars.size() >=  10){
+            return;
+        }
+
+        int random = new Random().nextInt(3);
+        switch (random) {
+            case 0 -> cars.add(CarFactory.CreateVolvo240(0, (cars.size()) * VEHICLE_Y_SPACING));
+            case 1 -> cars.add(CarFactory.CreateSaab95(0, (cars.size()) * VEHICLE_Y_SPACING));
+            case 2 -> cars.add(CarFactory.CreateScania(0, (cars.size()) * VEHICLE_Y_SPACING));
+        }
+    }
+
+    public void removeRandomCar(){
+        if(cars.size()>0) {
+            int randomIndex = new Random().nextInt(cars.size());
+            removeCar(cars.get(randomIndex));
+        }
+    }
+
+    private void removeCar(Car car){
+        cars.remove(car);
+        int index = 0;
+        for(Car otherCar : cars){
+            otherCar.setPosition(otherCar.getX(),index * VEHICLE_Y_SPACING);
+            index++;
+        }
+    }
+
     public void update(){
         for(Car car : cars){
             car.move();
