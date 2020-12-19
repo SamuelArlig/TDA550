@@ -1,5 +1,3 @@
-import org.hamcrest.Factory;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -17,19 +15,31 @@ public class SimulationEngine extends JFrame {
     private Timer timer = new Timer(delay, new SimulationEngine.TimerListener());
 
     private VehicleModel vehicleModel;
-    private VehicleController vehicleController;
+    private ControlPanelView controlPanelView;
     private VehicleView vehicleView;
     private InfoView infoView;
+    private FactoryView factoryView;
+
     private FactoryController factoryController;
+    private VehicleController vehicleController;
 
     public SimulationEngine(){
 
         vehicleModel = new VehicleModel(X);
         vehicleView = new VehicleView(X, TRACK_HEIGHT);
-        vehicleController = new VehicleController(vehicleModel, X, CONTROLLER_HEIGHT);
-        infoView = new InfoView(X/2, 50);
-        factoryController = new FactoryController(vehicleModel,X/2,100);
+        controlPanelView = new ControlPanelView(X, CONTROLLER_HEIGHT);
 
+        infoView = new InfoView(X/2, 50);
+        factoryView = new FactoryView(X/2, 100);
+
+        vehicleController = new VehicleController(vehicleModel);
+        vehicleController.initComponents(controlPanelView);
+
+        factoryController = new FactoryController(vehicleModel);
+        factoryController.initComponents(factoryView);
+
+        vehicleModel.addObserver(vehicleView);
+        vehicleModel.addObserver(infoView);
 
         timer.start();
 
@@ -43,12 +53,12 @@ public class SimulationEngine extends JFrame {
         this.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 
         this.add(vehicleView);
-        this.add(vehicleController);
+        this.add(controlPanelView);
         JPanel bottomBar = new JPanel();
         bottomBar.setPreferredSize(new Dimension(X, 100));
         bottomBar.setLayout(new GridLayout(1, 2));
         bottomBar.add(infoView);
-        bottomBar.add(factoryController);
+        bottomBar.add(factoryView);
         this.add(bottomBar);
 
         // Make the frame pack all it's components by respecting the sizes if possible.
@@ -67,8 +77,6 @@ public class SimulationEngine extends JFrame {
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             vehicleModel.update();
-            vehicleView.update(vehicleModel.getCars());
-            infoView.update(vehicleModel.getCars());
         }
     }
 

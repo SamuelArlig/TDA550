@@ -58,6 +58,7 @@ public class VehicleModel {
             }
         }
 
+        notifyObservers();
     }
 
     // Calls the gas method for each car once
@@ -123,5 +124,24 @@ public class VehicleModel {
 
     public List<Car> getCars(){
         return cars;
+    }
+
+
+
+    // Observable
+    private List<VehicleModelObserver> observers = new ArrayList<>();
+
+    public void addObserver(VehicleModelObserver observer){
+        observers.add(observer);
+    }
+
+    public void removeObserver(VehicleModelObserver observer){
+        observers.remove(observer);
+    }
+
+    protected void notifyObservers(){
+        for(VehicleModelObserver observer : observers){
+            observer.onNotify(this);
+        }
     }
 }

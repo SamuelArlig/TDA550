@@ -11,7 +11,7 @@ import java.util.Map;
 
 // This panel represent the animated part of the view with the car images.
 
-public class VehicleView extends JPanel{
+public class VehicleView extends JPanel implements VehicleModelObserver {
     public static int IMAGE_WIDTH = 100;
 
     // Images of all cars, key is model name
@@ -41,11 +41,6 @@ public class VehicleView extends JPanel{
 
     }
 
-    public void update(List<Car> cars){
-        this.cars = cars;
-        repaint();
-    }
-
     // This method is called each time the panel updates/refreshes/repaints itself
     @Override
     protected void paintComponent(Graphics g) {
@@ -54,5 +49,11 @@ public class VehicleView extends JPanel{
         for(Car car : cars) {
             g.drawImage(carImages.get(car.getModelName()), (int)car.getX(), (int)car.getY(), null);
         }
+    }
+
+    @Override
+    public void onNotify(VehicleModel model) {
+        this.cars = model.getCars();
+        repaint();
     }
 }
